@@ -1,6 +1,6 @@
 // Alle Witze, Memes und Sprüche der Startseite. Einfach anpassen oder durch eigene Insider ersetzen.
 
-export const DISCORD_INVITE_URL = 'https://discord.gg/Y6K7725FQ';
+export const DISCORD_INVITE_URL = 'https://discord.gg/3JeGaYP6Fq';
 
 export const tickerItems = [
   'Schattenkanzler dementiert Gerüchte über geheimen Pool im Keller',
