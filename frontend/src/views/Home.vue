@@ -544,6 +544,10 @@ onUnmounted(() => clearTimeout(typingTimer));
   color: var(--text-soft);
 }
 
+.dossier dd.gold-text {
+  color: var(--gold);
+}
+
 .hero-card-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
