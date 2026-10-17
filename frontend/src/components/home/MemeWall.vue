@@ -21,7 +21,7 @@ const assetUrl = (src) => `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`
 </script>
 
 <template>
-  <section id="memes" class="section-block section-alt">
+  <section id="memes" class="section-block">
     <div class="container">
       <div class="section-head" v-reveal>
         <span class="eyebrow">Nur zum Schmunzeln</span>

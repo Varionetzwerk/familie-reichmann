@@ -12,8 +12,9 @@ const showScrollTop = ref(false);
 const menuOpen = ref(false);
 
 const sectionLinks = [
-  { label: 'Gebote', to: { path: '/', hash: '#gebote' } },
+  { label: 'Familie', to: { path: '/', hash: '#familie' } },
   { label: 'Ränge', to: { path: '/', hash: '#ranks' } },
+  { label: 'Gebote', to: { path: '/', hash: '#gebote' } },
   { label: 'Memes', to: { path: '/', hash: '#memes' } },
   { label: 'Spielwiese', to: { path: '/', hash: '#spielwiese' } },
   { label: 'FAQ', to: { path: '/', hash: '#faq' } },

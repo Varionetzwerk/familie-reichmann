@@ -10,6 +10,8 @@ Die Seite ist rein statisch (Vue 3 + Vite) und wird automatisch auf **GitHub Pag
 | Was | Wo |
 | --- | --- |
 | Discord-Einladungslink | `frontend/src/content/reichmann.js` → `DISCORD_INVITE_URL` |
+| **Mitglieder** (Name + Rang) | `frontend/src/content/reichmann.js` → `MEMBERS` |
+| Ränge, Voraussetzungen, Regeln, Forum-/Regelwerk-Link, Kontakt | `frontend/src/content/reichmann.js` → `RANKS`, `FAMILY` |
 | Ticker, Gebote, Memes, Ausreden, Familienausweis | `frontend/src/content/reichmann.js` |
 | Eigene Meme-Bilder | Bild nach `frontend/public/memes/` legen, in `memes` eintragen (`src: 'memes/datei.png'`) |
 | Texte, Ränge, FAQ, geschwärzte Akte | `frontend/src/views/Home.vue` |

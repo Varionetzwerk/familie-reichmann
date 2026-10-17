@@ -1,75 +1,66 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { ICONS } from '../icons';
-import { DISCORD_INVITE_URL, redactedReveals } from '../content/reichmann';
+import { DISCORD_INVITE_URL, FAMILY, MEMBERS, RANKS, redactedReveals } from '../content/reichmann';
 import CrestIcon from '../components/CrestIcon.vue';
 import DiscordIcon from '../components/DiscordIcon.vue';
+import AppIcon from '../components/AppIcon.vue';
 import NewsTicker from '../components/home/NewsTicker.vue';
 import CommandmentsSection from '../components/home/CommandmentsSection.vue';
+import FamilyMembers from '../components/home/FamilyMembers.vue';
 import MemeWall from '../components/home/MemeWall.vue';
 import FamilyTools from '../components/home/FamilyTools.vue';
 
+const leader = MEMBERS.find((m) => m.rank === 'SCHATTENKANZLER');
+const membersInRank = (key) => MEMBERS.filter((m) => m.rank === key).length;
+
 const steps = [
   {
-    title: 'Discord beitreten',
-    text: 'Komm auf unseren Discord-Server. Dort trifft sich die Familie, dort läuft alles zusammen.',
-    icon: ICONS.userPlus,
+    title: 'Voraussetzungen',
+    text: 'Bevor du dich meldest, solltest du Folgendes mitbringen:',
+    list: FAMILY.requirements,
+    link: { href: FAMILY.rulesUrl, label: 'Zum Regelwerk' },
+    icon: ICONS.check,
     color: 'accent',
   },
   {
-    title: 'Bewerben',
-    text: 'Stell dich vor: wer du bist und warum du zu den Reichmanns willst. Der Schattenkanzler liest jede Bewerbung persönlich.',
+    title: 'Bei Noko melden',
+    text: `Sprich den Schattenkanzler im Spiel an oder schreib ihm auf Discord: ${FAMILY.contact}`,
     icon: ICONS.chat,
     color: 'indigo',
   },
   {
-    title: 'Aufsteigen',
-    text: 'Einmal aufgenommen, geht es los — vom Schattenreich bis hoch zum Schattenkanzler.',
+    title: 'Probephase',
+    text: 'Als Schattenscherge zeigst du, dass du zur Familie passt. Danach trägst du den Namen Reichmann.',
     icon: ICONS.trendingUp,
     color: 'gold',
   },
 ];
 
-const ranks = [
-  {
-    key: 'SCHATTENREICH',
-    title: 'Schattenreich',
-    text: 'Dein Einstieg — aufgenommen in den inneren Kreis der Dynastie.',
-    icon: ICONS.user,
-    color: 'indigo',
-  },
-  {
-    key: 'SCHATTENMINISTER',
-    title: 'Schattenminister',
-    text: 'Eigener Verantwortungsbereich innerhalb der Familie.',
-    icon: ICONS.briefcase,
-    color: 'accent',
-  },
-  {
-    key: 'SCHATTENKANZLER',
-    title: 'Schattenkanzler',
-    text: 'Die Spitze — volle Kontrolle über Ränge und Richtung.',
-    icon: ICONS.crown,
-    color: 'gold',
-  },
-];
+const ranks = RANKS.map((rank) => ({ ...rank, icon: ICONS[rank.icon], count: membersInRank(rank.key) }));
 
 const faq = [
-  { q: 'Wie werde ich Teil der Familie?', a: 'Tritt unserem Discord bei und bewirb dich dort. Der Schattenkanzler meldet sich bei dir.' },
-  { q: 'Brauche ich Erfahrung mit Rollenspiel?', a: 'Nein. Jeder fängt als Schattenreich an — den Rest lernst du bei uns.' },
   {
-    q: 'Was passiert, wenn ich abgelehnt werde?',
-    a: 'Dann bekommst du im Discord Bescheid, woran es lag, und kannst es später nochmal versuchen. Wer nicht aufgibt, zeigt Loyalität.',
+    q: 'Wie werde ich Teil der Familie?',
+    a: `Erfülle die Voraussetzungen (ab 16, mindestens 72 Stunden Spielzeit, Regelwerk gelesen) und melde dich im Spiel oder per Discord bei ${FAMILY.contact}.`,
+  },
+  {
+    q: 'Was ist die Probephase?',
+    a: 'Neue fangen als Schattenscherge an. In der Zeit zeigst du, dass du zur Familie passt — den Namen Reichmann trägst du erst als Schattenmitglied.',
+  },
+  {
+    q: 'Brauche ich Erfahrung mit Rollenspiel?',
+    a: 'Du brauchst mindestens 72 Stunden Spielzeit auf dem Server. Alles andere lernst du in der Familie.',
   },
   { q: 'Kostet die Mitgliedschaft etwas?', a: 'Nein, der Beitritt zur Familie ist komplett kostenlos.' },
   { q: 'Wie schnell steige ich im Rang auf?', a: 'Es gibt keine feste Wartezeit — Aktivität und Vertrauen entscheiden.' },
   {
     q: 'Was mache ich bei Fragen?',
-    a: 'Frag im Discord oder wende dich an ein Mitglied mit höherem Rang — niemand lässt dich allein stehen.',
+    a: `Schreib ${FAMILY.contact} auf Discord oder sprich ein Mitglied im Spiel an — niemand lässt dich allein stehen.`,
   },
 ];
 
-const typingWords = ranks.map((r) => r.title);
+const typingWords = RANKS.filter((r) => r.key !== 'SCHATTENSCHERGE').map((r) => r.title);
 const typedText = ref('');
 let typingTimer = null;
 
@@ -115,7 +106,7 @@ onUnmounted(() => clearTimeout(typingTimer));
         <div class="hero-copy">
           <span class="pulse-badge">
             <span class="pulse-dot"></span>
-            Bewerbungen im Discord geöffnet
+            {{ MEMBERS.length }} Mitglieder · Bewerbungen offen
           </span>
 
           <h1 class="hero-title">
@@ -141,6 +132,7 @@ onUnmounted(() => clearTimeout(typingTimer));
           </div>
 
           <div class="hero-chips">
+            <a href="#familie" class="chip">Die Familie</a>
             <a href="#ranks" class="chip">Hierarchie</a>
             <a href="#memes" class="chip">Meme-Wand</a>
             <a href="#spielwiese" class="chip">Familienausweis</a>
@@ -163,22 +155,28 @@ onUnmounted(() => clearTimeout(typingTimer));
             </div>
 
             <dl class="dossier">
+              <dt>Oberhaupt</dt>
+              <dd class="gold-text">{{ leader?.name ?? '–' }}</dd>
+              <dt>Mitglieder</dt>
+              <dd>{{ MEMBERS.length }}</dd>
+              <dt>Server</dt>
+              <dd>{{ FAMILY.server }}</dd>
               <dt>Gegründet</dt>
               <dd><span class="redacted" tabindex="0" :data-reveal="redactedReveals[0]" aria-label="geschwärzt">00.00.0000</span></dd>
-              <dt>Hauptquartier</dt>
-              <dd><span class="redacted" tabindex="0" :data-reveal="redactedReveals[1]" aria-label="geschwärzt">Irgendwostadt</span></dd>
-              <dt>Ränge</dt>
-              <dd>Schattenreich · Minister · Kanzler</dd>
-              <dt>Beitritt</dt>
-              <dd class="gold-text">Kostenlos</dd>
               <dt>Bewerbung</dt>
-              <dd>über Discord</dd>
+              <dd>im Spiel oder per Discord</dd>
             </dl>
 
-            <a :href="DISCORD_INVITE_URL" target="_blank" rel="noopener" class="btn btn-discord btn-block">
-              <DiscordIcon />
-              Zum Discord der Familie
-            </a>
+            <div class="hero-card-actions">
+              <a :href="DISCORD_INVITE_URL" target="_blank" rel="noopener" class="btn btn-discord">
+                <DiscordIcon />
+                Discord
+              </a>
+              <a :href="FAMILY.forumUrl" target="_blank" rel="noopener" class="btn btn-secondary">
+                Forum-Vorstellung
+                <AppIcon name="external" stroke="2" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -196,7 +194,7 @@ onUnmounted(() => clearTimeout(typingTimer));
         <div class="section-head" v-reveal>
           <span class="eyebrow">Anleitung</span>
           <h2 class="section-title">In drei Schritten <span class="accent-text">dabei</span></h2>
-          <p class="section-sub">Kein Bewerbungsmarathon: Discord beitreten, vorstellen, loslegen.</p>
+          <p class="section-sub">Kein Bewerbungsmarathon: Voraussetzungen erfüllen, melden, Probephase bestehen.</p>
         </div>
 
         <div class="grid-3">
@@ -209,6 +207,14 @@ onUnmounted(() => clearTimeout(typingTimer));
             </div>
             <h3>{{ step.title }}</h3>
             <p>{{ step.text }}</p>
+            <ul v-if="step.list" class="step-list">
+              <li v-for="item in step.list" :key="item">
+                <AppIcon name="check" stroke="2.5" /> {{ item }}
+              </li>
+            </ul>
+            <a v-if="step.link" :href="step.link.href" target="_blank" rel="noopener" class="step-link">
+              {{ step.link.label }} <AppIcon name="external" stroke="2" />
+            </a>
           </div>
         </div>
       </div>
@@ -222,7 +228,7 @@ onUnmounted(() => clearTimeout(typingTimer));
         <div class="section-head" v-reveal>
           <span class="eyebrow">Hierarchie</span>
           <h2 class="section-title">Die <span class="accent-text">Rangordnung</span></h2>
-          <p class="section-sub">Jeder startet als Schattenreich. Von dort geht's nach oben.</p>
+          <p class="section-sub">Jeder startet als Schattenscherge in der Probephase. Von dort geht's nach oben.</p>
         </div>
 
         <div class="ranks">
@@ -234,6 +240,7 @@ onUnmounted(() => clearTimeout(typingTimer));
           >
             <div class="rank-card-top">
               <span class="rank-tier">Stufe {{ i + 1 }}</span>
+              <span class="rank-members">{{ rank.count }} {{ rank.count === 1 ? 'Mitglied' : 'Mitglieder' }}</span>
             </div>
             <span :class="['icon-box', `icon-box--${rank.color}`]">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path :d="rank.icon" /></svg>
@@ -245,18 +252,21 @@ onUnmounted(() => clearTimeout(typingTimer));
       </div>
     </section>
 
+    <FamilyMembers />
+
     <MemeWall />
 
     <FamilyTools />
 
     <!-- FAQ -->
-    <section id="faq" class="section-block section-alt">
+    <section id="faq" class="section-block">
       <div class="container faq-layout">
         <div class="faq-intro" v-reveal>
           <span class="eyebrow">Für Neulinge</span>
           <h2 class="section-title">Häufige <span class="accent-text">Fragen</span></h2>
           <p class="section-sub">
-            Alles Wichtige vor deinem Beitritt. Noch etwas offen? Frag einfach ein Mitglied mit höherem Rang.
+            Alles Wichtige vor deinem Beitritt. Die offizielle Vorstellung findest du auch im
+            <a :href="FAMILY.forumUrl" target="_blank" rel="noopener" class="inline-link">Modern-Gaming-Forum</a>.
           </p>
         </div>
 
@@ -273,7 +283,7 @@ onUnmounted(() => clearTimeout(typingTimer));
     </section>
 
     <!-- Chronik -->
-    <section id="chronik" class="section-block">
+    <section id="chronik" class="section-block section-alt">
       <div class="container">
         <div class="section-head" v-reveal>
           <span class="eyebrow">Ursprung</span>
@@ -320,14 +330,18 @@ onUnmounted(() => clearTimeout(typingTimer));
         </span>
         <h2 class="cta-title">Werde Teil der <span class="accent-text">Familie Reichmann</span></h2>
         <p class="section-sub">
-          Bewerbungen laufen über unseren Discord. Ob du reinkommst, entscheidet der Schattenkanzler persönlich.
+          Melde dich im Spiel oder per Discord bei {{ FAMILY.contact }}. Ob du reinkommst, entscheidet der
+          Schattenkanzler persönlich.
         </p>
         <div class="cta-actions">
           <a :href="DISCORD_INVITE_URL" target="_blank" rel="noopener" class="btn btn-discord btn-lg">
             <DiscordIcon />
             Discord beitreten
           </a>
-          <a href="#gebote" class="btn btn-secondary btn-lg">Erst die Gebote lesen</a>
+          <a :href="FAMILY.forumUrl" target="_blank" rel="noopener" class="btn btn-secondary btn-lg">
+            Familienvorstellung lesen
+            <AppIcon name="external" stroke="2" />
+          </a>
         </div>
       </div>
     </section>
@@ -530,6 +544,12 @@ onUnmounted(() => clearTimeout(typingTimer));
   color: var(--text-soft);
 }
 
+.hero-card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
 .scroll-cue {
   position: absolute;
   bottom: 1.75rem;
@@ -620,11 +640,66 @@ onUnmounted(() => clearTimeout(typingTimer));
   margin: 0 auto;
 }
 
+.step-list {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 1rem auto 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.step-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.step-list svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--success);
+}
+
+.step-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 1.1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-light);
+}
+
+.step-link:hover {
+  color: #fff;
+}
+
+.step-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+.inline-link {
+  color: var(--accent-light);
+  font-weight: 600;
+}
+
+.inline-link:hover {
+  color: #fff;
+}
+
 /* ---------- Ranks ---------- */
 
 .ranks {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.25rem;
 }
 
@@ -648,6 +723,11 @@ onUnmounted(() => clearTimeout(typingTimer));
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-dim);
+}
+
+.rank-members {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 .rank-card .icon-box {
@@ -932,12 +1012,15 @@ onUnmounted(() => clearTimeout(typingTimer));
     text-align: left;
   }
 
-  .grid-3,
-  .ranks {
+  .grid-3 {
     grid-template-columns: 1fr;
     max-width: 520px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .ranks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .faq-layout {
@@ -965,6 +1048,11 @@ onUnmounted(() => clearTimeout(typingTimer));
 
   .cta-actions .btn {
     width: 100%;
+  }
+
+  .ranks,
+  .hero-card-actions {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

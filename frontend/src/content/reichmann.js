@@ -2,6 +2,66 @@
 
 export const DISCORD_INVITE_URL = 'https://discord.gg/3JeGaYP6Fq';
 
+// Stand der offiziellen Familienvorstellung im Modern-Gaming-Forum.
+export const FAMILY = {
+  forumUrl: 'https://modern-gaming.net/forum/thread/86133-familienvorstellung-reichmann/',
+  rulesUrl: 'https://rules-mrp.modern-gaming.net/',
+  server: 'Modern Gaming · Modern Roleplay',
+  contact: '.noko._',
+  requirements: ['Mindestens 16 Jahre alt', 'Mindestens 72 Stunden Spielzeit', 'Das Regelwerk einmal gelesen'],
+  rules: [
+    'Respektvolles und höfliches Verhalten gegenüber allen Mitgliedern wird vorausgesetzt.',
+    'Behandle andere so, wie du von ihnen behandelt werden willst.',
+  ],
+};
+
+// Von unten nach oben. `color` steuert die Farbe von Icon und Avatar.
+export const RANKS = [
+  {
+    key: 'SCHATTENSCHERGE',
+    title: 'Schattenscherge',
+    text: 'Die Probephase. Du zeigst, dass du zur Familie passt — noch ohne Namensrechte der Familie.',
+    icon: 'user',
+    color: 'slate',
+  },
+  {
+    key: 'SCHATTENMITGLIED',
+    title: 'Schattenmitglied',
+    text: 'Ein vollwertiges Mitglied der Familie. Ab jetzt trägst du den Namen Reichmann.',
+    icon: 'shield',
+    color: 'indigo',
+  },
+  {
+    key: 'SCHATTENMINISTER',
+    title: 'Schattenminister',
+    text: 'Berater des Schattenkanzlers. Trifft mit ihm zusammen die Entscheidungen.',
+    icon: 'briefcase',
+    color: 'accent',
+  },
+  {
+    key: 'SCHATTENKANZLER',
+    title: 'Schattenkanzler',
+    text: 'Das Oberhaupt der Familie. Er leitet die Geschäfte und führt die Familie an.',
+    icon: 'crown',
+    color: 'gold',
+  },
+];
+
+// Neue Mitglieder einfach hier eintragen. `rank` muss ein `key` aus RANKS sein.
+export const MEMBERS = [
+  { name: 'Noko Og Reichmann', rank: 'SCHATTENKANZLER' },
+  { name: 'Fritz Mitz Reichmann', rank: 'SCHATTENMINISTER' },
+  { name: 'Heinz Og Reichmann', rank: 'SCHATTENMINISTER' },
+  { name: 'Barry Og Reichmann', rank: 'SCHATTENMITGLIED' },
+  { name: 'Finn Volcher Reichmann', rank: 'SCHATTENMITGLIED' },
+  { name: 'Nao Og Reichmann', rank: 'SCHATTENMITGLIED' },
+  { name: 'Eram Van Reichmann', rank: 'SCHATTENMITGLIED' },
+  { name: 'Banshee Van Richmann', rank: 'SCHATTENMITGLIED' },
+  { name: 'Juri Jurisa Reichmann', rank: 'SCHATTENMITGLIED' },
+  { name: 'Ada Cinnamon', rank: 'SCHATTENMITGLIED' },
+  { name: 'Luna Crowley Reichmann', rank: 'SCHATTENSCHERGE' },
+];
+
 export const tickerItems = [
   'Schattenkanzler dementiert Gerüchte über geheimen Pool im Keller',
   'Familienrat beschließt einstimmig: Pizza Hawaii bleibt verboten',

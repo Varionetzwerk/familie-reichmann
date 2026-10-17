@@ -1,5 +1,6 @@
 <script setup>
-import { DISCORD_INVITE_URL } from '../content/reichmann';
+import { DISCORD_INVITE_URL, FAMILY } from '../content/reichmann';
+import AppIcon from './AppIcon.vue';
 import CrestIcon from './CrestIcon.vue';
 import DiscordIcon from './DiscordIcon.vue';
 
@@ -23,9 +24,9 @@ const year = new Date().getFullYear();
 
       <nav class="footer-col" aria-label="Familie">
         <h4>Familie</h4>
-        <RouterLink :to="{ path: '/', hash: '#gebote' }">Gebote</RouterLink>
+        <RouterLink :to="{ path: '/', hash: '#familie' }">Mitglieder</RouterLink>
         <RouterLink :to="{ path: '/', hash: '#ranks' }">Rangordnung</RouterLink>
-        <RouterLink :to="{ path: '/', hash: '#chronik' }">Geheime Akte</RouterLink>
+        <RouterLink :to="{ path: '/', hash: '#gebote' }">Gebote</RouterLink>
         <RouterLink :to="{ path: '/', hash: '#faq' }">FAQ</RouterLink>
       </nav>
 
@@ -33,7 +34,14 @@ const year = new Date().getFullYear();
         <h4>Zum Schmunzeln</h4>
         <RouterLink :to="{ path: '/', hash: '#memes' }">Meme-Wand</RouterLink>
         <RouterLink :to="{ path: '/', hash: '#spielwiese' }">Familienausweis</RouterLink>
-        <RouterLink :to="{ path: '/', hash: '#spielwiese' }">Ausreden-Generator</RouterLink>
+        <RouterLink :to="{ path: '/', hash: '#chronik' }">Geheime Akte</RouterLink>
+      </nav>
+
+      <nav class="footer-col" aria-label="Offiziell">
+        <h4>Offiziell</h4>
+        <a :href="FAMILY.forumUrl" target="_blank" rel="noopener">Familienvorstellung <AppIcon name="external" stroke="2" /></a>
+        <a :href="FAMILY.rulesUrl" target="_blank" rel="noopener">MRP-Regelwerk <AppIcon name="external" stroke="2" /></a>
+        <a :href="DISCORD_INVITE_URL" target="_blank" rel="noopener">Discord <AppIcon name="external" stroke="2" /></a>
       </nav>
     </div>
 
@@ -52,7 +60,7 @@ const year = new Date().getFullYear();
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
   gap: 2.5rem;
   padding-top: 3.5rem;
   padding-bottom: 3rem;
@@ -109,6 +117,13 @@ const year = new Date().getFullYear();
   color: var(--accent-light);
 }
 
+.footer-col a svg {
+  width: 13px;
+  height: 13px;
+  margin-left: 0.2rem;
+  vertical-align: -1px;
+}
+
 .footer-bottom {
   display: flex;
   justify-content: space-between;
@@ -121,7 +136,17 @@ const year = new Date().getFullYear();
   color: var(--text-dim);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer-about {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
