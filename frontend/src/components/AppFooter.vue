@@ -32,6 +32,7 @@ const year = new Date().getFullYear();
 
       <nav class="footer-col" aria-label="Unterhaltung">
         <h4>Zum Schmunzeln</h4>
+        <RouterLink :to="{ path: '/', hash: '#berichte' }">Das Schattenblatt</RouterLink>
         <RouterLink :to="{ path: '/', hash: '#memes' }">Meme-Wand</RouterLink>
         <RouterLink :to="{ path: '/', hash: '#spielwiese' }">Familienausweis</RouterLink>
         <RouterLink :to="{ path: '/', hash: '#chronik' }">Geheime Akte</RouterLink>

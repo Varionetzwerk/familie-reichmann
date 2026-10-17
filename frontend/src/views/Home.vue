@@ -8,6 +8,7 @@ import AppIcon from '../components/AppIcon.vue';
 import NewsTicker from '../components/home/NewsTicker.vue';
 import CommandmentsSection from '../components/home/CommandmentsSection.vue';
 import FamilyMembers from '../components/home/FamilyMembers.vue';
+import NewsReports from '../components/home/NewsReports.vue';
 import MemeWall from '../components/home/MemeWall.vue';
 import FamilyTools from '../components/home/FamilyTools.vue';
 
@@ -133,7 +134,7 @@ onUnmounted(() => clearTimeout(typingTimer));
 
           <div class="hero-chips">
             <a href="#familie" class="chip">Die Familie</a>
-            <a href="#ranks" class="chip">Hierarchie</a>
+            <a href="#berichte" class="chip">Schattenblatt</a>
             <a href="#memes" class="chip">Meme-Wand</a>
             <a href="#spielwiese" class="chip">Familienausweis</a>
             <a href="#chronik" class="chip">Geheime Akte</a>
@@ -254,12 +255,14 @@ onUnmounted(() => clearTimeout(typingTimer));
 
     <FamilyMembers />
 
+    <NewsReports />
+
     <MemeWall />
 
     <FamilyTools />
 
     <!-- FAQ -->
-    <section id="faq" class="section-block">
+    <section id="faq" class="section-block section-alt">
       <div class="container faq-layout">
         <div class="faq-intro" v-reveal>
           <span class="eyebrow">Für Neulinge</span>
@@ -283,7 +286,7 @@ onUnmounted(() => clearTimeout(typingTimer));
     </section>
 
     <!-- Chronik -->
-    <section id="chronik" class="section-block section-alt">
+    <section id="chronik" class="section-block">
       <div class="container">
         <div class="section-head" v-reveal>
           <span class="eyebrow">Ursprung</span>

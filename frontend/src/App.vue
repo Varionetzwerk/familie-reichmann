@@ -15,8 +15,8 @@ const sectionLinks = [
   { label: 'Familie', to: { path: '/', hash: '#familie' } },
   { label: 'Ränge', to: { path: '/', hash: '#ranks' } },
   { label: 'Gebote', to: { path: '/', hash: '#gebote' } },
+  { label: 'Berichte', to: { path: '/', hash: '#berichte' } },
   { label: 'Memes', to: { path: '/', hash: '#memes' } },
-  { label: 'Spielwiese', to: { path: '/', hash: '#spielwiese' } },
   { label: 'FAQ', to: { path: '/', hash: '#faq' } },
 ];
 

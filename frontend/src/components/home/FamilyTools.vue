@@ -58,7 +58,7 @@ onUnmounted(() => clearTimeout(copiedTimer));
 </script>
 
 <template>
-  <section id="spielwiese" class="section-block section-alt">
+  <section id="spielwiese" class="section-block">
     <div class="container">
       <div class="section-head" v-reveal>
         <span class="eyebrow">Spielwiese</span>
